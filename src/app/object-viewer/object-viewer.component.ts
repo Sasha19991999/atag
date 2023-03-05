@@ -25,7 +25,19 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
   private labels: InfoLabel[] = [
     {
       x: 0.6, y: 0.7, z: 0.4, code: 1
-    }
+    }, // Loading tray dose assist
+    {
+      x: 0.6, y: 0.7, z: -0.5, code: 3
+    }, // Programs
+    {
+      x: 0.6, y: 0.7, z: 0, code: 2
+    }, // Full color display
+    {
+      x: -0.6, y: 0.7, z: 0.4, code: 4
+    }, // Water connection,
+    {
+      x: 0.6, y: 0, z: 0, code: 5
+    }, // General characteristics center of drum 
   ]
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
@@ -160,8 +172,8 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     this.light4.position.set(-500, 300, 500);
     this.scene.add(this.light4);
 
-    var axesHelper = new THREE.AxesHelper( 5 );
-    this.scene.add( axesHelper );
+    /*var axesHelper = new THREE.AxesHelper( 5 );
+    this.scene.add( axesHelper );*/
   }
 
   private addLabels() {
