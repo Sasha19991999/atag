@@ -6,12 +6,27 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { interval } from 'rxjs';
 import { InteractionService } from '../services/interaction.service';
 
+interface InfoLabel {
+  // x-y-z => red, green, blue
+  x: number;
+  y: number;
+  z: number;
+  code: number;
+}
+
 @Component({
   selector: 'app-object-viewer',
   templateUrl: './object-viewer.component.html',
   styleUrls: ['./object-viewer.component.css']
 })
 export class ObjectViewerComponent implements OnInit, AfterViewInit {
+
+  // x-y-z => red, green, blue
+  private labels: InfoLabel[] = [
+    {
+      x: 0.6, y: 0.7, z: 0.4, code: 1
+    }
+  ]
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
 
@@ -112,17 +127,7 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
       //this.model.scale.set([1,1,1]);
       this.scene.add(this.model);
 
-      const earthDiv = document.createElement( 'div' ) as HTMLElement;
-				earthDiv.className = 'label';
-				earthDiv.textContent = '1';
-				//earthDiv.style.marginTop = '-1em';
-        earthDiv.addEventListener("pointerdown", () => { this.showInfo(1); });
-				const earthLabel = new CSS2DObject( earthDiv );
-        // red, green, blue
-				earthLabel.position.set( 0.5, 0.5, 0.5 );
-        //earthLabel.position.multiplyScalar(-1);
-				this.scene.add( earthLabel );
-				//earthLabel.layers.set( 0 );
+      this.addLabels();
     });
     //*Camera
     let aspectRatio = this.getAspectRatio();
@@ -157,6 +162,21 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
 
     var axesHelper = new THREE.AxesHelper( 5 );
     this.scene.add( axesHelper );
+  }
+
+  private addLabels() {
+    this.labels.forEach(label => {
+      const earthDiv = document.createElement( 'div' ) as HTMLElement;
+				earthDiv.className = 'label';
+				earthDiv.textContent = `${label.code}`;
+        earthDiv.addEventListener("pointerdown", () => { this.showInfo(label.code); });
+				const annotationLabel = new CSS2DObject( earthDiv );
+        // x-y-z => red, green, blue
+				annotationLabel.position.set( label.x, label.y, label.z );
+				this.scene.add( annotationLabel );
+        // Could be useful in the future to swith between consumer and retail mode
+				//earthLabel.layers.set( 0 );
+    })
   }
 
   private getAspectRatio() {
