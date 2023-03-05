@@ -79,7 +79,7 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
    */
   private createControls = () => {
     this.labelRenderer = new CSS2DRenderer();
-    this.labelRenderer.setSize(600, 600);
+    this.labelRenderer.setSize(this.containerRef.nativeElement.offsetWidth, this.containerRef.nativeElement.offsetHeight);
     this.labelRenderer.domElement.style.position = 'absolute';
     this.labelRenderer.domElement.style.top = '0px';
     this.containerRef.nativeElement.appendChild(this.labelRenderer.domElement);
