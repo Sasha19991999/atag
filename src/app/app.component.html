@@ -1,3 +1,23 @@
-<app-object-viewer class="viewer"></app-object-viewer>
+<div class="container">
+  <h1>Digital Twin - Retail<span class="badge bg-secondary">Beta</span></h1>
 
-<router-outlet></router-outlet>
+  <div class="card mb-2">
+    <div class="card-body">Proof of concept - design is subject to change</div>
+  </div>
+
+  <div class="alert alert-info" role="alert">
+    <i class="bi bi-info-circle"></i> Click on a label of the model to discover
+    more information about it
+  </div>
+
+  <app-object-viewer class="viewer"></app-object-viewer>
+
+  <div class="card mt-3" *ngIf="selectedInfo == 1">
+    <div class="card-body">
+      <h5 class="card-title">Some feature</h5>
+      <p class="card-text">Some more info about the feature</p>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

@@ -4,6 +4,7 @@ import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { interval } from 'rxjs';
+import { InteractionService } from '../services/interaction.service';
 
 @Component({
   selector: 'app-object-viewer',
@@ -111,11 +112,11 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
       //this.model.scale.set([1,1,1]);
       this.scene.add(this.model);
 
-      const earthDiv = document.querySelector( '.label' ) as HTMLElement;
-				//earthDiv.className = 'label';
-				//earthDiv.textContent = 'Earth';
-				earthDiv.style.marginTop = '-1em';
-        earthDiv.addEventListener("pointerdown", () => { console.log("Clicked") });
+      const earthDiv = document.createElement( 'div' ) as HTMLElement;
+				earthDiv.className = 'label';
+				earthDiv.textContent = '1';
+				//earthDiv.style.marginTop = '-1em';
+        earthDiv.addEventListener("pointerdown", () => { this.showInfo(1); });
 				const earthLabel = new CSS2DObject( earthDiv );
         // red, green, blue
 				earthLabel.position.set( 0.5, 0.5, 0.5 );
@@ -182,11 +183,8 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     }());
   }
 
-  showAlert() {
-    alert("Testing");
-  }
 
-  constructor() { }
+  constructor(private interactionService: InteractionService) { }
 
   testText = 100;
 
@@ -201,6 +199,10 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     this.createScene();
     this.createControls();
     this.startRenderingLoop();
+  }
+
+  private showInfo(code: number) {
+    this.interactionService.setInfo(code);
   }
 }
 
