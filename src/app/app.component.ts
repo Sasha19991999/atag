@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef } from '
 import * as THREE from "three";
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private loaderGLTF = new GLTFLoader();
 
   private renderer!: THREE.WebGLRenderer;
+  private labelRenderer!: CSS2DRenderer;
 
   private scene!: THREE.Scene;
 
@@ -74,12 +75,12 @@ export class AppComponent implements OnInit, AfterViewInit {
    * @memberof ModelComponent
    */
   private createControls = () => {
-    const renderer = new CSS2DRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.domElement.style.position = 'absolute';
-    renderer.domElement.style.top = '0px';
-    document.body.appendChild(renderer.domElement);
-    this.controls = new OrbitControls(this.camera, renderer.domElement);
+    this.labelRenderer = new CSS2DRenderer();
+    this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    this.labelRenderer.domElement.style.position = 'absolute';
+    this.labelRenderer.domElement.style.top = '0px';
+    document.body.appendChild(this.labelRenderer.domElement);
+    this.controls = new OrbitControls(this.camera, this.labelRenderer.domElement);
     this.controls.autoRotate = true;
     this.controls.enableZoom = true;
     this.controls.enablePan = false;
@@ -106,6 +107,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.model.position.multiplyScalar(-1);
       //this.model.scale.set([1,1,1]);
       this.scene.add(this.model);
+
+      const earthDiv = document.createElement( 'div' );
+				earthDiv.className = 'label';
+				earthDiv.textContent = 'Earth';
+				earthDiv.style.marginTop = '-1em';
+				const earthLabel = new CSS2DObject( earthDiv );
+				earthLabel.position.set( 0, 0, 0 );
+				this.model.add( earthLabel );
+				//earthLabel.layers.set( 0 );
     });
     //*Camera
     let aspectRatio = this.getAspectRatio();
@@ -160,11 +170,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
     let component: AppComponent = this;
     (function render() {
-      component.renderer.render(component.scene, component.camera);
-      //component.animateModel();
       requestAnimationFrame(render);
-      //component.updateAnnotationOpacity();
-      component.updateScreenPosition();
+      component.renderer.render(component.scene, component.camera);
+      component.labelRenderer.render(component.scene, component.camera);
     }());
   }
 
@@ -174,34 +182,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
-/*   private updateAnnotationOpacity() {
-    const meshDistance = this.camera.position.distanceTo(mesh.position);
-    const spriteDistance = this.camera.position.distanceTo(sprite.position);
-    spriteBehindObject = spriteDistance > meshDistance;
-    sprite.material.opacity = spriteBehindObject ? 0.25 : 1;
-
-    // Do you want a number that changes size according to its position?
-    // Comment out the following line and the `::before` pseudo-element.
-    sprite.material.opacity = 0;
-} */
-
-private updateScreenPosition() {
-    const vector = new THREE.Vector3(250, 250, 250);
-    vector.project(this.camera);
-
-    vector.x = Math.round((0.5 + vector.x / 2) * (this.canvas.width / window.devicePixelRatio));
-    vector.y = Math.round((0.5 - vector.y / 2) * (this.canvas.height / window.devicePixelRatio));
-
-    console.log(`Vector X: ${vector.x} Vector Y: ${vector.y}`);
-    this.annotation.style.top = `${vector.y}px`;
-    this.annotation.style.left = `${vector.x}px`;
-    //annotation.style.opacity = spriteBehindObject ? 0.25 : 1;
-}
-
   ngAfterViewInit() {
     this.annotation = document.querySelector(".annotation") as HTMLElement;
     this.createScene();
-    this.startRenderingLoop();
     this.createControls();
+    this.startRenderingLoop();
   }
 }
