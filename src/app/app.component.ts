@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -108,10 +109,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       //this.model.scale.set([1,1,1]);
       this.scene.add(this.model);
 
-      const earthDiv = document.createElement( 'div' );
-				earthDiv.className = 'label';
-				earthDiv.textContent = 'Earth';
+      const earthDiv = document.querySelector( '.label' ) as HTMLElement;
+				//earthDiv.className = 'label';
+				//earthDiv.textContent = 'Earth';
 				earthDiv.style.marginTop = '-1em';
+        earthDiv.addEventListener("pointerdown", () => { this.testText = 0 });
 				const earthLabel = new CSS2DObject( earthDiv );
 				earthLabel.position.set( 0, 0, 0 );
 				this.model.add( earthLabel );
@@ -176,10 +178,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     }());
   }
 
+  showAlert() {
+    alert("Testing");
+  }
+
   constructor() { }
 
-  ngOnInit(): void {
+  testText = 100;
 
+  ngOnInit(): void {
+    const source = interval(1000).subscribe(() => {
+      this.testText += 10;
+    });
   }
 
   ngAfterViewInit() {
