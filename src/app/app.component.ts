@@ -52,6 +52,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private scene!: THREE.Scene;
 
+  // Annotations related
+  //private vectorAnnotation1 = new THREE.Vector3(250, 250, 250);
+  private annotation!: HTMLElement;
   /**
    *Animate the model
    *
@@ -160,6 +163,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       component.renderer.render(component.scene, component.camera);
       //component.animateModel();
       requestAnimationFrame(render);
+      //component.updateAnnotationOpacity();
+      component.updateScreenPosition();
     }());
   }
 
@@ -169,11 +174,34 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
+/*   private updateAnnotationOpacity() {
+    const meshDistance = this.camera.position.distanceTo(mesh.position);
+    const spriteDistance = this.camera.position.distanceTo(sprite.position);
+    spriteBehindObject = spriteDistance > meshDistance;
+    sprite.material.opacity = spriteBehindObject ? 0.25 : 1;
+
+    // Do you want a number that changes size according to its position?
+    // Comment out the following line and the `::before` pseudo-element.
+    sprite.material.opacity = 0;
+} */
+
+private updateScreenPosition() {
+    const vector = new THREE.Vector3(250, 250, 250);
+    vector.project(this.camera);
+
+    vector.x = Math.round((0.5 + vector.x / 2) * (this.canvas.width / window.devicePixelRatio));
+    vector.y = Math.round((0.5 - vector.y / 2) * (this.canvas.height / window.devicePixelRatio));
+
+    console.log(`Vector X: ${vector.x} Vector Y: ${vector.y}`);
+    this.annotation.style.top = `${vector.y}px`;
+    this.annotation.style.left = `${vector.x}px`;
+    //annotation.style.opacity = spriteBehindObject ? 0.25 : 1;
+}
+
   ngAfterViewInit() {
+    this.annotation = document.querySelector(".annotation") as HTMLElement;
     this.createScene();
     this.startRenderingLoop();
     this.createControls();
   }
-
-
 }
