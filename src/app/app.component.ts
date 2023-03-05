@@ -97,6 +97,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.model = gltf.scene.children[0];
       //gltf.scene.scale.set(0.5,0.5,0.5);
       console.log(this.model);
+      this.model.scale.set(0.08,0.08,0.08);
       var box = new THREE.Box3().setFromObject(this.model);
       box.getCenter(this.model.position); // this re-sets the mesh position
       this.model.position.multiplyScalar(-1);
@@ -111,27 +112,31 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.nearClippingPane,
       this.farClippingPane
     )
-    this.camera.position.x = 0;
-    this.camera.position.y = 0;
-    this.camera.position.z = 0;
-    this.ambientLight = new THREE.AmbientLight(0x00000, 100);
+    this.camera.position.x = 115;
+    this.camera.position.y = 115;
+    this.camera.position.z = 115;
+    //this.camera.zoom = 10;
+    this.ambientLight = new THREE.AmbientLight(0xffffe6, 0.4);
     this.scene.add(this.ambientLight);
-    this.directionalLight = new THREE.DirectionalLight(0xffdf04, 0.4);
+    this.directionalLight = new THREE.DirectionalLight(0xffffe6, 0.3);
     this.directionalLight.position.set(0, 1, 0);
     this.directionalLight.castShadow = true;
     this.scene.add(this.directionalLight);
-    this.light1 = new THREE.PointLight(0x4b371c, 10);
+    this.light1 = new THREE.PointLight(0xffffe6, 0.3);
     this.light1.position.set(0, 200, 400);
     this.scene.add(this.light1);
-    this.light2 = new THREE.PointLight(0x4b371c, 10);
+    this.light2 = new THREE.PointLight(0xffffe6, 0.3);
     this.light2.position.set(500, 100, 0);
     this.scene.add(this.light2);
-    this.light3 = new THREE.PointLight(0x4b371c, 10);
+    this.light3 = new THREE.PointLight(0xffffe6, 0.3);
     this.light3.position.set(0, 100, -500);
     this.scene.add(this.light3);
-    this.light4 = new THREE.PointLight(0x4b371c, 10);
+    this.light4 = new THREE.PointLight(0xffffe6, 0.3);
     this.light4.position.set(-500, 300, 500);
     this.scene.add(this.light4);
+
+    var axesHelper = new THREE.AxesHelper( 5 );
+    this.scene.add( axesHelper );
   }
 
   private getAspectRatio() {
@@ -153,7 +158,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     let component: AppComponent = this;
     (function render() {
       component.renderer.render(component.scene, component.camera);
-      component.animateModel();
+      //component.animateModel();
       requestAnimationFrame(render);
     }());
   }
