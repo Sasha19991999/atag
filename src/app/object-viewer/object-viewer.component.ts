@@ -40,6 +40,9 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     }, // General characteristics center of drum 
     {
       x: 0.6, y: 0.45, z: 0, code: 6
+    },
+    {
+      x: 0.6, y: 0.1, z: -0.35, code: 7
     }
   ]
 
