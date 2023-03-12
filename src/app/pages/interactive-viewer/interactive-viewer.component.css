@@ -1,7 +1,30 @@
+.viewer-container {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+  margin: auto;
+}
+
+.viewer-container > div {
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  top: 0;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 1.2em;
+  font-weight: bold;
+  z-index: 99999;
+  border-top: 1px dashed #00002f;
+  border-left: 1px dashed #00002f;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
 .viewer {
   width: 100%;
   height: 50vh;
   display: block;
   overflow: hidden;
-  margin: auto;
 }

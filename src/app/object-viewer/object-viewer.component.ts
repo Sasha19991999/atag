@@ -127,7 +127,7 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
   private createScene() {
     //* Scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xd4d4d8)
+    this.scene.background = new THREE.Color(0x00002f)
     this.loaderGLTF.load('assets/washing-machine/scene.gltf', (gltf: GLTF) => {
       this.model = gltf.scene.children[0];
       //gltf.scene.scale.set(0.5,0.5,0.5);

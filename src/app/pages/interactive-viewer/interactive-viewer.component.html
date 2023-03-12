@@ -1,7 +1,12 @@
 <div class="container">
-  <h1 class="mb-4 mt-4">Washing machine features</h1>
+  <h1 class="mb-4 mt-4">Features and Services</h1>
 
-  <app-object-viewer class="viewer"></app-object-viewer>
+  <div class="viewer-container">
+    <div (click)="showServices()">Services</div>
+    <app-object-viewer class="viewer"></app-object-viewer>
+  </div>
+
+  <div *ngIf="selectedInfo == servicesCode">Viewing services</div>
 
   <div class="card mt-3 mb-3" *ngIf="selectedInfo == 4">
     <div class="card-body">

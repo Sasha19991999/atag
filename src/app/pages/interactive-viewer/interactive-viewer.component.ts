@@ -7,6 +7,8 @@ import { InteractionService } from 'src/app/services/interaction.service';
   styleUrls: ['./interactive-viewer.component.css']
 })
 export class InteractiveViewerComponent implements OnInit{
+  public readonly servicesCode = 100;
+
   public selectedInfo = 0;
 
   constructor(private interactionService: InteractionService) { }
@@ -15,5 +17,9 @@ export class InteractiveViewerComponent implements OnInit{
     this.interactionService.selectedInfo$.subscribe(value => {
       this.selectedInfo = value;
     })
+  }
+
+  showServices() {
+    this.interactionService.setInfo(this.servicesCode);
   }
 }
