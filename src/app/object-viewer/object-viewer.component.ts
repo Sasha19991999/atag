@@ -38,6 +38,9 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     {
       x: 0.6, y: 0, z: 0, code: 5
     }, // General characteristics center of drum 
+    {
+      x: 0.6, y: 0.45, z: 0, code: 6
+    }
   ]
 
   @ViewChild('canvas') private canvasRef!: ElementRef;
@@ -172,8 +175,8 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     this.light4.position.set(-500, 300, 500);
     this.scene.add(this.light4);
 
-    /*var axesHelper = new THREE.AxesHelper( 5 );
-    this.scene.add( axesHelper );*/
+    var axesHelper = new THREE.AxesHelper( 5 );
+    this.scene.add( axesHelper );
   }
 
   private addLabels() {
