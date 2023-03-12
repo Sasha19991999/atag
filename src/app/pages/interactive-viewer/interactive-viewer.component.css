@@ -28,3 +28,14 @@
   display: block;
   overflow: hidden;
 }
+
+.card-cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.distinction-shadow {
+  text-shadow: 1px 1px 10px #000000;
+  background-color: rgba(0, 0, 0, 0.6);
+}

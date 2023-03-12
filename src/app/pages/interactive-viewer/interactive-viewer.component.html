@@ -6,7 +6,81 @@
     <app-object-viewer class="viewer"></app-object-viewer>
   </div>
 
-  <div *ngIf="selectedInfo == servicesCode">Viewing services</div>
+  <div *ngIf="selectedInfo == servicesCode">
+    <div class="container px-4 py-5" id="custom-cards">
+      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+          <div
+            class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('/assets/detergents.webp')"
+          >
+            <div
+              class="d-flex flex-column h-100 p-5 pt-6 pb-6 text-white distinction-shadow"
+            >
+              <h5 class="pt-2 mt-2 mb-1 aspect-title lh-1 fw-bold">
+                Special environmental friendly detergents that improve the
+                quality of the washing.
+              </h5>
+              <p class="mt-4">
+                <a
+                  class="btn btn-dark"
+                  href="https://us.asko.com/products/laundry/detergents/c/aolaund12"
+                  target="_blank"
+                  >Discover more</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div
+            class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('/assets/shelf.webp')"
+          >
+            <div
+              class="d-flex flex-column h-100 p-5 pt-6 pb-6 text-white distinction-shadow"
+            >
+              <h5 class="pt-2 mt-2 mb-4 aspect-title lh-1 fw-bold">
+                Easy to pack and unpack shelf
+              </h5>
+              <p class="mt-4">
+                <a
+                  class="btn btn-dark"
+                  href="https://www.asko.com/uk/laundry/hidden-helper"
+                  target="_blank"
+                  >Discover more</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div
+            class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url('/assets/ironing-board.webp')"
+          >
+            <div
+              class="d-flex flex-column h-100 p-5 pt-6 pb-6 distinction-shadow"
+            >
+              <h5 class="pt-2 mt-2 mb-4 aspect-title lh-1 fw-bold">
+                Invisible ironing board
+              </h5>
+              <p class="mt-4">
+                <a
+                  class="btn btn-dark"
+                  href="https://us.asko.com/products/laundry/hidden-helpers/IRON-BOARD-HI1153W-ABZ/p/000000000000576552"
+                  target="_blank"
+                  >Discover more</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="card mt-3 mb-3" *ngIf="selectedInfo == 4">
     <div class="card-body">
