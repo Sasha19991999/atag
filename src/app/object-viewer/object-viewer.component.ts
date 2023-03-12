@@ -178,8 +178,8 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     this.light4.position.set(-500, 300, 500);
     this.scene.add(this.light4);
 
-    var axesHelper = new THREE.AxesHelper( 5 );
-    this.scene.add( axesHelper );
+    /*var axesHelper = new THREE.AxesHelper( 5 );
+    this.scene.add( axesHelper );*/
   }
 
   private addLabels() {
