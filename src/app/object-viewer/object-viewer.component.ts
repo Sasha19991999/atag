@@ -12,6 +12,8 @@ interface InfoLabel {
   y: number;
   z: number;
   code: number;
+  cssClass?: string;
+  labelText?: string;
 }
 
 @Component({
@@ -43,6 +45,9 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
     },
     {
       x: 0.6, y: 0.1, z: -0.35, code: 7
+    },
+    {
+      x: -0.6, y: -0.6,  z: 0, code: 8, cssClass: "special-label", labelText: "✨"
     }
   ]
 
@@ -185,8 +190,8 @@ export class ObjectViewerComponent implements OnInit, AfterViewInit {
   private addLabels() {
     this.labels.forEach(label => {
       const earthDiv = document.createElement( 'div' ) as HTMLElement;
-				earthDiv.className = 'label';
-				earthDiv.textContent = `${label.code}`;
+				earthDiv.className = label.cssClass || 'label';
+				earthDiv.textContent = label.labelText ||  `${label.code}`;
         earthDiv.addEventListener("pointerdown", () => { this.showInfo(label.code); });
 				const annotationLabel = new CSS2DObject( earthDiv );
         // x-y-z => red, green, blue
